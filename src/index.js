@@ -14,24 +14,10 @@ function loadComments(gravatar) {
     })
 }
 
-function newComment(comment, gravatar) {
-  fetch(`http://localhost:3000/comments`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json'
-    },
-    body: JSON.stringify({
-      content: comment,
-      gravatar: gravatar
-    })
-  })
-}
-
 document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("identicon-form")
+  const identiconForm = document.getElementById("identicon-form")
 
-  form.addEventListener("submit", (event) => {
+  identiconForm.addEventListener("submit", (event) => {
     event.preventDefault()
     handleSubmit(event)
   })
@@ -40,9 +26,25 @@ document.addEventListener("DOMContentLoaded", () => {
   const gravatar = document.getElementById("identicon-form")[0].value
 
   commentForm.addEventListener("submit", (event) => {
-    const comment = document.querySelector('#comment-form > div > input[type="text"]')
+    event.preventDefault();
+    const comment = document.querySelector('#comment-form > div > input[type="text"]').value
     const gravatar = document.getElementById("identicon-form")[0].value
     newComment(comment, gravatar)
-    loadComments(gravatar)
+    // loadComments(gravatar)
+    // addComment(comment)
   })
 })
+
+function newComment(comment, gravatar) {
+  fetch(`http://localhost:3000/comments`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      content: comment,
+      gravatar: gravatar
+    })
+  }).then(() => loadComments(gravatar))
+}

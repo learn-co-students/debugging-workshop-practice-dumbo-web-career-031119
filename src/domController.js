@@ -11,7 +11,7 @@ function updateGravatar(identicon) {
 }
 
 function updateComments(comments) {
-  container = document.getElementById("commentsContainer")
+  container = document.getElementById("comments-container")
   container.innerHTML = ''
   comments.map(function(c) {
     addComment(c)
@@ -19,7 +19,7 @@ function updateComments(comments) {
 }
 
 function addComment(comment) {
-  container = document.getElementById("commentsContainer")
+  container = document.getElementById("comments-container")
   let p = document.createElement("p")
   p.innerText = comment
   container.appendChild(p)
